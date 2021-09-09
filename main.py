@@ -17,5 +17,5 @@ app.include_router(json_response.router)
 async def startup_event():
     mongoengine.register_connection(alias='core', name='demo_bus')
 
-    
+
 

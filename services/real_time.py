@@ -285,9 +285,9 @@ class Next_services:
 
     def _check_real_time(self):
         try:
-            r = requests.get(f"{self.REAL_TIME_API}{self.stop_code}")
-            data = r.json()
-            #data = self.test_data
+            #r = requests.get(f"{self.REAL_TIME_API}{self.stop_code}")
+            #data = r.json()
+            data = self.test_data
             #print(data)
             
             return data
@@ -308,6 +308,7 @@ class Next_services:
             ns_data["time_table_time"] = str_to_date(next_service["MonitoredVehicleJourney"]["DestinationAimedArrivalTime"])
             ns_data["destination"] = next_service["MonitoredVehicleJourney"]["DestinationName"][0]["Value"]
             ns_data["direction"] = next_service["MonitoredVehicleJourney"]["DirectionRef"]["Value"]
+            ns_data["trip_id"] = next_service["MonitoredVehicleJourney"]["FramedVehicleJourneyRef"]["DatedVehicleJourneyRef"]
             ns_data["route"] = next_service["MonitoredVehicleJourney"]["LineRef"]["Value"]
             ns_data["stop_name"] = next_service["MonitoredVehicleJourney"]["MonitoredCall"]["StopPointName"][0]["Value"]
             ns_data["stop_code"] = next_service["MonitoredVehicleJourney"]["MonitoredCall"]["StopPointRef"]["Value"]

@@ -17,7 +17,7 @@ const searchStops = async (searchText) => {
     return stop.name.match(regex) || stop.address.match(regex);
   });
 
-  console.log(matches);
+  // console.log(matches);
 
   if (search.value === "") {
     matches = [];
@@ -61,7 +61,3 @@ function renderHtml(matches) {
 }
 
 search.addEventListener("input", () => searchStops(search.value));
-
-// const str = JSON.parse(document.getElementById("coords").dataset.loc);
-
-// console.log(str);

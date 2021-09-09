@@ -21,8 +21,3 @@ def stop(request: Request, code:str):
 @router.get("/search")
 def search(request: Request):
     return templates.TemplateResponse("/browse/search.html", {"request":request})
-
-@router.get("/stop_test/{code}")
-def stop_from_db(code: str):
-    stop = metro_service.get_stop(code=code)
-    return {"stop" : stop.name}

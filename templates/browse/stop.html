@@ -4,10 +4,14 @@
   <div class="row">
     <div class="col"></div>
     <div class="col-6 fs-1 bg-dark text-white rounded-top shadow-sm">
-      Bus Arrival
+      <div class="row">
+        <div class="col">Bus Arrival</div>
+        <div class="col-2 fs-3" id="time">19:15</div>
+      </div>
+
       <div class="row bg-secondary">
         <div class="col fs-6 p-1 text-start">Next Services</div>
-        <div class="col fs-6 p-1 text-end">arrives in</div>
+        <div class="col-2 fs-6 p-1 text-start">Arrives in</div>
       </div>
       {% for i in itineraries %}
       <div class="row bg-white text-dark">
@@ -20,16 +24,22 @@
         <div class="col fs-6 p-1">
           <div class="d-flex p-2 bd-highlight">{{i.direction}}</div>
         </div>
-        <div class="col-2 fs-6 p-1">
-          <div class="d-flex p-2 bd-highlight text-end">6 min</div>
+        <div class="col-2 fs-6 p-1 text-center align-middle">
+          <div class="d-flex p-2 bd-highlight" id="{{i.route}}-{{i.direction}}">
+            6 min
+          </div>
         </div>
       </div>
       {% endfor %}
       <div class="row bg-white text-dark p-2">
-        <div class="col fs-6">{{name}}</div>
+        <div class="col fs-6" id="stop" data-code='{"code":"{{code}}"}'>
+          {{name}}
+        </div>
       </div>
     </div>
     <div class="col"></div>
   </div>
 </div>
+<script src="../../static/js/time.js"></script>
+<script src="../../static/js/realTime.js"></script>
 {% endblock %}
