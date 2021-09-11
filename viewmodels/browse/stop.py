@@ -13,3 +13,4 @@ class StopViewModel(ViewModelBase):
         self.address = metro_service.get_stop_address(code)
         self.coords = metro_service.get_stop_coords(code)
         self.itineraries = metro_service.get_itineraries(code)
+        self.time_table = metro_service.next_n_services(code, 3)

@@ -13,24 +13,27 @@
         <div class="col fs-6 p-1 text-start">Next Services</div>
         <div class="col-2 fs-6 p-1 text-start">Arrives in</div>
       </div>
-      {% for i in itineraries %}
+      {% for bus in time_table %} {% if bus.next_services %}
       <div class="row bg-white text-dark">
         <div
           class="col-2 fs-6 p-1 btn text-vertical-center text-white my-2"
-          style="background-color: #{{i.color}};"
+          style="background-color: #{{bus.color}}"
         >
-          {{i.route}}
+          {{bus.route}}
         </div>
         <div class="col fs-6 p-1">
-          <div class="d-flex p-2 bd-highlight">{{i.direction}}</div>
+          <div class="d-flex p-2 bd-highlight">{{bus.direction}}</div>
         </div>
         <div class="col-2 fs-6 p-1 text-center align-middle">
-          <div class="d-flex p-2 bd-highlight" id="{{i.route}}-{{i.direction}}">
-            6 min
+          <div
+            class="d-flex p-2 bd-highlight"
+            id='{{bus["next_services"][0].trip_id}}'
+          >
+            {{bus["next_services"][0].arrives_in}}
           </div>
         </div>
       </div>
-      {% endfor %}
+      {% endif %} {% endfor %}
       <div class="row bg-white text-dark p-2">
         <div class="col fs-6" id="stop" data-code='{"code":"{{code}}"}'>
           {{name}}

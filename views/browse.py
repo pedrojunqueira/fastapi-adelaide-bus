@@ -15,6 +15,7 @@ templates = Jinja2Templates(directory="templates")
 @router.get("/stop/{code}", response_class=HTMLResponse)
 def stop(request: Request, code:str):
     svm = StopViewModel(request=request, code=code)
+    print(svm.to_dict())
     return templates.TemplateResponse("/browse/stop.html", svm.to_dict())
 
 

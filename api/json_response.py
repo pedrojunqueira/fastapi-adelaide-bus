@@ -13,3 +13,8 @@ def get_stops():
 def next_services(code:str):
     ns = Next_services(code)
     return ns.next_services
+
+@router.get("/api/time_table_next_n/{code}")
+def time_table_next_n(code:str, n:int=1):
+    response = metro_service.next_n_services(code=code, next_n=n)
+    return response

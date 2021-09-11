@@ -1,5 +1,10 @@
-from models.stop import Stop
+from datetime import datetime, timedelta
+
 import mongoengine
+
+from models.stop import Stop
+from models.trip import Trip
+
 
 def get_stop_address(code:str):
     stop = get_stop(code)
@@ -33,6 +38,43 @@ def get_stops():
 def get_stop(code:str):
     stop = Stop.objects(code=code).first()
     return stop
+
+def arrives_in(arrival_time: datetime):
+    now = datetime.now()
+    at = arrival_time
+    here_in = int((at - now).seconds/60)
+    return f"{here_in} min" if here_in > 1 else "now"
+
+def next_n_services(code:str, next_n:int = 3):
+    stop = Stop.objects(code=code).first()
+    itns = stop.itineraries
+    response = []
+    for i in itns:
+        itinerary = dict()
+        next_services = list()
+        now = datetime.now()
+        
+        trips = Trip.objects(itinerary=i)
+        
+        if trips:
+            for trip in trips:
+                stop_times = dict()
+                # filter the times of the trip from now to 1 hour
+                stp = [st for st in trip.stop_times if (st.stop_id == stop.stop_id) 
+                                                and (st.arrival_time.time() > now.time())
+                                                and (st.arrival_time.time() < (now + timedelta(hours=1)).time() ) ]
+                if stp:
+                    stop_times["trip_id"] = stp[0].trip_id
+                    stop_times["arrival_time"] = stp[0].arrival_time
+                    stop_times["arrives_in"] = arrives_in(stp[0].arrival_time)
+                    stop_times["stop_id"] = stp[0].stop_id
+                    next_services.append(stop_times)
+        itinerary["route"] = i.route.route_id
+        itinerary["color"] = i.route.color
+        itinerary["direction"] = i.direction
+        itinerary["next_services"] = next_services[:next_n]
+        response.append(itinerary)
+    return response
 
 #12505
     
