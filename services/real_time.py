@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 import requests
 
@@ -285,14 +285,20 @@ class Next_services:
 
     def _check_real_time(self):
         try:
-            #r = requests.get(f"{self.REAL_TIME_API}{self.stop_code}")
-            #data = r.json()
-            data = self.test_data
-            #print(data)
+            r = requests.get(f"{self.REAL_TIME_API}{self.stop_code}")
+            data = r.json()
+            #data = self.test_data
             
             return data
         except Exception as e:
             print(e)
+
+    def _arrives_in(self, arrival_time: datetime):
+        now = datetime.now()
+        # now = datetime(2021,2,3,21,21,0) # for test data
+        at = arrival_time
+        here_in = int((at - now).seconds/60)
+        return f"{here_in} min" if here_in > 1 else "now"
 
     def _build_next_services(self):
 
@@ -303,17 +309,22 @@ class Next_services:
         
         for next_service in next_services_response:
             ns_data = dict()
-            ns_data["recorded_at"] = str_to_date(next_service["RecordedAtTime"])
+            recorded_time = str_to_date(next_service["RecordedAtTime"])
+            time_table_time = str_to_date(next_service["MonitoredVehicleJourney"]["DestinationAimedArrivalTime"])
+            aimed_time = str_to_date(next_service["MonitoredVehicleJourney"]["MonitoredCall"]["AimedArrivalTime"])
+            expected_time = str_to_date(next_service["MonitoredVehicleJourney"]["MonitoredCall"]["LatestExpectedArrivalTime"])
+            ns_data["recorded_at"] = recorded_time
             ns_data["journey_code"] = next_service["MonitoredVehicleJourney"]["BlockRef"]["Value"]
-            ns_data["time_table_time"] = str_to_date(next_service["MonitoredVehicleJourney"]["DestinationAimedArrivalTime"])
+            ns_data["time_table_time"] = time_table_time
             ns_data["destination"] = next_service["MonitoredVehicleJourney"]["DestinationName"][0]["Value"]
             ns_data["direction"] = next_service["MonitoredVehicleJourney"]["DirectionRef"]["Value"]
             ns_data["trip_id"] = next_service["MonitoredVehicleJourney"]["FramedVehicleJourneyRef"]["DatedVehicleJourneyRef"]
             ns_data["route"] = next_service["MonitoredVehicleJourney"]["LineRef"]["Value"]
             ns_data["stop_name"] = next_service["MonitoredVehicleJourney"]["MonitoredCall"]["StopPointName"][0]["Value"]
             ns_data["stop_code"] = next_service["MonitoredVehicleJourney"]["MonitoredCall"]["StopPointRef"]["Value"]
-            ns_data["aimed_time"] = str_to_date(next_service["MonitoredVehicleJourney"]["MonitoredCall"]["AimedArrivalTime"])
-            ns_data["expected_time"] = str_to_date(next_service["MonitoredVehicleJourney"]["MonitoredCall"]["LatestExpectedArrivalTime"])
+            ns_data["aimed_time"] = aimed_time
+            ns_data["expected_time"] = expected_time
+            ns_data["arrives_in"] = self._arrives_in(expected_time)
             ns_data["lat"] = float(next_service["MonitoredVehicleJourney"]["VehicleLocation"]["Items"][0])
             ns_data["lon"] = float(next_service["MonitoredVehicleJourney"]["VehicleLocation"]["Items"][1])
 

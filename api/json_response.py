@@ -9,8 +9,8 @@ router = fastapi.APIRouter()
 def get_stops():
     return metro_service.get_stops()
 
-@router.get("/api/next_services/{code}")
-def next_services(code:str):
+@router.get("/api/real_time/{code}")
+def real_time(code:str):
     ns = Next_services(code)
     return ns.next_services
 

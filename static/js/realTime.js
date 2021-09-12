@@ -3,20 +3,26 @@ const stop = JSON.parse(document.getElementById("stop").dataset.code);
 const stopCode = stop.code;
 
 const getRealTime = async () => {
-  const res = await fetch(`/api/next_services/${stopCode}`);
+  const res = await fetch(`/api/real_time/${stopCode}`);
   const nextServices = await res.json();
 
   console.log(nextServices);
 
-  const elIds = nextServices.map((el) => `${el.route}-${el.destination}`);
+  nextServices.forEach((service) => {
+    const tripId = service.trip_id;
 
-  elIds.forEach((element) => {
-    let el = document.getElementById("190-City");
+    const arriveInEl = document.getElementById(tripId);
+    const iconElement = document.getElementById(`icon-${tripId}`);
 
-    el.textContent = "Now";
+    if (arriveInEl) {
+      arriveInEl.textContent = service.arrives_in;
+      iconElement.classList.remove("hide-icon");
+    }
   });
 };
 
-// setInterval(function () {
-//   getRealTime();
-// }, 3000);
+getRealTime();
+
+setInterval(function () {
+  location.reload();
+}, 100000);

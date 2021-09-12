@@ -4,9 +4,9 @@
   <div class="row">
     <div class="col"></div>
     <div class="col-6 fs-1 bg-dark text-white rounded-top shadow-sm">
-      <div class="row">
-        <div class="col">Bus Arrival</div>
-        <div class="col-2 fs-3" id="time">19:15</div>
+      <div class="d-flex justify-content-between">
+        <div class="">Bus Arrival</div>
+        <div class="fs-3 align-self-center" id="time">19:15</div>
       </div>
 
       <div class="row bg-secondary">
@@ -25,11 +25,16 @@
           <div class="d-flex p-2 bd-highlight">{{bus.direction}}</div>
         </div>
         <div class="col-2 fs-6 p-1 text-center align-middle">
-          <div
-            class="d-flex p-2 bd-highlight"
-            id='{{bus["next_services"][0].trip_id}}'
-          >
-            {{bus["next_services"][0].arrives_in}}
+          <div class="d-flex p-2 bd-highlight justify-content-between">
+            <div class="expected" id='{{bus["next_services"][0].trip_id}}'>
+              {{bus["next_services"][0].arrives_in}}
+            </div>
+            <div
+              class="liveicon hide-icon"
+              id='icon-{{bus["next_services"][0].trip_id}}'
+            >
+              <ion-icon name="pulse-outline"></ion-icon>
+            </div>
           </div>
         </div>
       </div>
