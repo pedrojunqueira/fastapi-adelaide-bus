@@ -1,0 +1,53 @@
+{% extends "/shared/_base.html" %} {% block content %}
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-6">
+      {% if not track_data%}
+
+      <div class="alert alert-danger fs-6">
+        There is not live data for {{route}}
+      </div>
+      {% else %}
+
+      <div class="alert alert-success fs-6">Live data for {{route}}</div>
+
+      {% endif %}
+      <div
+        class="text-center mb-4 fs-4"
+        id="stop"
+        data-stop='{"coords":{{stop_coords}}}'
+      >
+        {{name}}
+      </div>
+      <div class="text-center mb-4 fs-5">{{address}}</div>
+
+      <div
+        id="vehicle"
+        {%
+        if
+        track_data
+        %}
+        data-vehicle='{"coords":{{track_data[0]["vehicle_location"]}},"route":"{{track_data[0]["route"]}}","destination":"{{track_data[0]["destination"]}}"}'
+        {%
+        else
+        %}
+        data-vehicle='{"coords":[],"route":""}'
+        {%
+        endif
+        %}
+      ></div>
+
+      <div
+        class="rounded-top shadow-sm"
+        id="map"
+        style="width: 600px; height: 400px"
+      ></div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+<script src="{{ url_for('static', path='/js/map.js') }}"></script>
+
+{% endblock %}

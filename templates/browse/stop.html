@@ -15,12 +15,13 @@
       </div>
       {% for bus in time_table %} {% if bus.next_services %}
       <div class="row bg-white text-dark">
-        <div
+        <a
           class="col-2 fs-6 p-1 btn text-vertical-center text-white my-2"
           style="background-color: #{{bus.color}}"
+          href="/stop/tracking/{{code}}/{{bus.route}}"
         >
           {{bus.route}}
-        </div>
+        </a>
         <div class="col fs-6 p-1">
           <div class="d-flex p-2 bd-highlight">{{bus.direction}}</div>
         </div>
@@ -48,6 +49,6 @@
     <div class="col"></div>
   </div>
 </div>
-<script src="../../static/js/time.js"></script>
-<script src="../../static/js/realTime.js"></script>
+<script src="{{ url_for('static', path='/js/time.js') }}"></script>
+<script src="{{ url_for('static', path='/js/realTime.js') }}"></script>
 {% endblock %}

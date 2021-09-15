@@ -1,3 +1,19 @@
 .hide-icon {
   display: none;
 }
+
+.marker {
+  background-image: url("../img/iconmonstr-location-1-24.png");
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.bus-marker {
+  background-image: url("../img/iconmonstr-bus-3-24.png");
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}

@@ -1,12 +1,4 @@
 {% extends "/shared/_base.html"%} {% block content %}
-<!-- Header  -->
-<div class="container p-3">
-  <div class="row">
-    <div class="col"></div>
-    <div class="col-6 h2 text-center">Adelaide Metro Bus Stop Search</div>
-    <div class="col"></div>
-  </div>
-</div>
 
 <!-- Search Bar -->
 
@@ -14,7 +6,7 @@
   <div class="col"></div>
   <div class="col-6">
     <input
-      class="form-control form-control-lg text-center mb-2"
+      class="form-control form-control-lg text-center mt-4"
       type="text"
       id="search"
       placeholder="search bus stop"
@@ -29,8 +21,6 @@
   <div class="col-6"><div class="container" id="match-list"></div></div>
   <div class="col"></div>
 </div>
-
-<!-- <div id="coords" data-loc='{"name":"Jo"}'></div> -->
 
 <script src="../static/js/search.js"></script>
 

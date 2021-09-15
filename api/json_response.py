@@ -18,3 +18,8 @@ def real_time(code:str):
 def time_table_next_n(code:str, n:int=1):
     response = metro_service.next_n_services(code=code, next_n=n)
     return response
+
+@router.get("/api/track_route/{stop}/{route}")
+def track_route(stop:str, route:str):
+    ns = Next_services(stop)
+    return ns.track_bus(route)

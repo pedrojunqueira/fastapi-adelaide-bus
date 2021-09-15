@@ -240,6 +240,7 @@ class Next_services:
                         "ProvisionalExpectedDepartureTime": "/Date(0)/",
                         "VehicleLocationAtStop": {
                             "Items": ["-34.923921", "138.599433"]
+
                         }
                         },
                         "MonitoredSpecified": True,
@@ -300,22 +301,85 @@ class Next_services:
         here_in = int((at - now).seconds/60)
         return f"{here_in} min" if here_in > 1 else "now"
 
+    def track_bus(self, route:str):
+        arr = [
+        {
+            "recorded_at": "2021-02-03T21:17:29",
+            "journey_code": "3240",
+            "destination_time": "2021-02-03T22:00:00",
+            "destination": "Port Adelaide",
+            "direction": "O",
+            "trip_id": "648348",
+            "route": "230",
+            "stop_name": "X1 King William St",
+            "stop_code": "16281",
+            "aimed_time": "2021-02-03T21:21:00",
+            "expected_time": "2021-02-03T21:21:57",
+            "arrives_in": "86 min",
+            "vehicle_location": [
+            138.6062,
+            -34.93194
+            ]
+        },
+        {
+            "recorded_at": "2021-02-03T21:13:54",
+            "journey_code": "368",
+            "destination_time": "2021-02-03T22:10:00",
+            "destination": "Paradise",
+            "direction": "O",
+            "trip_id": "647113",
+            "route": "178",
+            "stop_name": "X1 King William St",
+            "stop_code": "16281",
+            "aimed_time": "2021-02-03T21:24:00",
+            "expected_time": "2021-02-03T21:26:25",
+            "arrives_in": "91 min",
+            "vehicle_location": [
+            138.6258,
+            -34.95549
+            ]
+        },
+        {
+            "recorded_at": "2021-02-03T21:15:40",
+            "journey_code": "3698",
+            "destination_time": "2021-02-03T22:07:00",
+            "destination": "Paradise",
+            "direction": "O",
+            "trip_id": "646903",
+            "route": "174",
+            "stop_name": "X1 King William St",
+            "stop_code": "16281",
+            "aimed_time": "2021-02-03T21:39:00",
+            "expected_time": "2021-02-03T21:39:17",
+            "arrives_in": "104 min",
+            "vehicle_location": [
+            138.6185,
+            -34.971
+            ]
+        }
+        ]
+
+        arr = self.next_services
+
+        sub = filter(lambda x : x["route"]==route , arr)
+        return list(sub)
+    
     def _build_next_services(self):
 
         next_services_response = self.real_time_data["StopMonitoringDelivery"][0].get("MonitoredStopVisit")
         if not next_services_response:
             return
-        
+
         
         for next_service in next_services_response:
             ns_data = dict()
             recorded_time = str_to_date(next_service["RecordedAtTime"])
-            time_table_time = str_to_date(next_service["MonitoredVehicleJourney"]["DestinationAimedArrivalTime"])
+            destination_time = str_to_date(next_service["MonitoredVehicleJourney"]["DestinationAimedArrivalTime"])
             aimed_time = str_to_date(next_service["MonitoredVehicleJourney"]["MonitoredCall"]["AimedArrivalTime"])
             expected_time = str_to_date(next_service["MonitoredVehicleJourney"]["MonitoredCall"]["LatestExpectedArrivalTime"])
             ns_data["recorded_at"] = recorded_time
             ns_data["journey_code"] = next_service["MonitoredVehicleJourney"]["BlockRef"]["Value"]
-            ns_data["time_table_time"] = time_table_time
+            ns_data["destination_time"] = destination_time
             ns_data["destination"] = next_service["MonitoredVehicleJourney"]["DestinationName"][0]["Value"]
             ns_data["direction"] = next_service["MonitoredVehicleJourney"]["DirectionRef"]["Value"]
             ns_data["trip_id"] = next_service["MonitoredVehicleJourney"]["FramedVehicleJourneyRef"]["DatedVehicleJourneyRef"]
@@ -325,9 +389,9 @@ class Next_services:
             ns_data["aimed_time"] = aimed_time
             ns_data["expected_time"] = expected_time
             ns_data["arrives_in"] = self._arrives_in(expected_time)
-            ns_data["lat"] = float(next_service["MonitoredVehicleJourney"]["VehicleLocation"]["Items"][0])
-            ns_data["lon"] = float(next_service["MonitoredVehicleJourney"]["VehicleLocation"]["Items"][1])
-
+            ns_data["vehicle_location"] = [float(next_service["MonitoredVehicleJourney"]["VehicleLocation"]["Items"][1]),
+                                            float(next_service["MonitoredVehicleJourney"]["VehicleLocation"]["Items"][0])]
+            
             self.next_services.append(ns_data)
         
     
