@@ -1,5 +1,3 @@
-//console.log("hello from the client");
-
 const search = document.getElementById("search");
 const matchList = document.getElementById("match-list");
 
@@ -16,8 +14,6 @@ const searchStops = async (searchText) => {
     const regex = new RegExp(`${searchText}`, "gi");
     return stop.name.match(regex) || stop.address.match(regex);
   });
-
-  // console.log(matches);
 
   if (search.value === "") {
     matches = [];

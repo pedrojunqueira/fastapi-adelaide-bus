@@ -6,8 +6,6 @@ const getRealTime = async () => {
   const res = await fetch(`/api/real_time/${stopCode}`);
   const nextServices = await res.json();
 
-  console.log(nextServices);
-
   nextServices.forEach((service) => {
     const tripId = service.trip_id;
 

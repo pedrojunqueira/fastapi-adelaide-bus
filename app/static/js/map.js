@@ -13,8 +13,6 @@ if (vehicleLocation.length > 0) {
   markers.push(vehicleLocation);
 }
 
-console.log(markers);
-
 [stopLon, stopLat] = stopLocation;
 
 let maxLon = stopLon;

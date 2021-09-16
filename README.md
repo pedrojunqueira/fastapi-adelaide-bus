@@ -1,1 +1,51 @@
 # fastapi-adelaide-bus
+
+This repository is a side project to get me into a full stack up using a python FastAPI back end and a little bit of
+JavaScrip in the back end.
+
+What the app does is it mimics the Adelaide Metro bus tracker.
+
+The features include
+
+    - Search Bus Stop by name or address in a autocomplete search bar
+    - Check the scheduled next incoming bus routes for the stop
+    - Show Live data from Adelaide Metro if exist
+    - Plot incoming bus in a map relative to the bus you selected
+
+I have not deployed in a server yet.
+
+Data is stored in a MongoDB
+
+The application is packed in Docker and deployed with docker-compose
+
+To launch the app without data here is the instruction
+
+## Usage
+
+### Cownload the repository
+
+```bash
+git clone https://github.com/pedrojunqueira/fastapi-adelaide-bus.git
+cd fastapi-adelaide-bus
+```
+
+### Creat an .env file
+
+```bash
+touch .env
+MONGODB_URL=mongodb://host.docker.internal:27018/demo_bus >> .env
+```
+
+You would need docker installed to run the app in containers
+
+### Start network of containers
+
+```bash
+docker-compose up --build
+```
+
+app will run on port `80` got to [http://0.0.0.0/](http://0.0.0.0/)
+
+## How to add data to mongo
+
+TODO

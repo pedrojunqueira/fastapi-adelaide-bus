@@ -1,4 +1,5 @@
-import mongoengine
+from mongoengine import connect
+import os
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 
@@ -15,7 +16,7 @@ app.include_router(json_response.router)
 
 @app.on_event("startup")
 async def startup_event():
-    mongoengine.register_connection(alias='core', name='demo_bus')
-
+    connect(alias="core", host=os.environ.get("MONGODB_URL"))
+    
 
 
