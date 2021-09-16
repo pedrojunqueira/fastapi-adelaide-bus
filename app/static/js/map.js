@@ -39,7 +39,7 @@ mapboxgl.accessToken =
 
 var map = new mapboxgl.Map({
   container: "map",
-  style: "mapbox://styles/mapbox/satellite-v9",
+  style: "mapbox://styles/mapbox/streets-v11",
   center: stopLocation,
   zoom: 15,
 });
