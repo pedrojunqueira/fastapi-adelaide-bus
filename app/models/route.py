@@ -9,11 +9,6 @@ class Route(mongoengine.Document):
     color = mongoengine.StringField()
 
     meta = {
-        'db_alias': 'core',
-        'collection': 'routes',
+        "db_alias": "core",
+        "collection": "routes",
     }
-
-
-
-
-

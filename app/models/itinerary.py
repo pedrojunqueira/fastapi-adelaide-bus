@@ -1,5 +1,4 @@
 import mongoengine
-
 from models.route import Route
 
 
@@ -10,6 +9,6 @@ class Itinerary(mongoengine.Document):
     type = mongoengine.IntField()
     route = mongoengine.ReferenceField(Route)
     meta = {
-        'db_alias': 'core',
-        'collection': 'itineraries',
+        "db_alias": "core",
+        "collection": "itineraries",
     }

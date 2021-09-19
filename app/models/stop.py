@@ -1,5 +1,4 @@
 import mongoengine
-
 from models.itinerary import Itinerary
 
 
@@ -12,6 +11,6 @@ class Stop(mongoengine.Document):
     address = mongoengine.StringField()
     itineraries = mongoengine.ListField(mongoengine.ReferenceField(Itinerary))
     meta = {
-        'db_alias': 'core',
-        'collection': 'stops',
+        "db_alias": "core",
+        "collection": "stops",
     }

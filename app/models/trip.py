@@ -1,5 +1,4 @@
 import mongoengine
-
 from models.itinerary import Itinerary
 from models.stop_time import StopTime
 
@@ -12,7 +11,6 @@ class Trip(mongoengine.Document):
     itinerary = mongoengine.ListField(mongoengine.ReferenceField(Itinerary))
     stop_times = mongoengine.ListField(mongoengine.EmbeddedDocumentField(StopTime))
     meta = {
-        'db_alias': 'core',
-        'collection': 'trips',
+        "db_alias": "core",
+        "collection": "trips",
     }
-

@@ -1,4 +1,3 @@
-
 from services import metro_service
 from starlette.requests import Request
 from viewmodels.shared.viewmodel import ViewModelBase

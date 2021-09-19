@@ -1,3 +1,5 @@
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 # fastapi-adelaide-bus
 
 This repository is a side project to get me into a full stack up using a python FastAPI back end and a little bit of
@@ -22,14 +24,14 @@ To launch the app without data here is the instruction
 
 ## Usage
 
-### Cownload the repository
+### Download the repository
 
 ```bash
 git clone https://github.com/pedrojunqueira/fastapi-adelaide-bus.git
 cd fastapi-adelaide-bus
 ```
 
-### Creat an .env file
+### Create an .env file
 
 ```bash
 touch .env
