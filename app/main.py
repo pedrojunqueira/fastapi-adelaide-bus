@@ -18,3 +18,4 @@ app.include_router(json_response.router)
 @app.on_event("startup")
 async def startup_event():
     connect(alias="core", host=os.environ.get("MONGODB_URL"))
+    
