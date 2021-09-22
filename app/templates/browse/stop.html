@@ -3,7 +3,9 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col"></div>
-    <div class="col-6 fs-1 bg-dark text-white rounded-top shadow-sm">
+    <div
+      class="col-xl-6 col-lg-10 col-sm-10 fs-1 bg-dark text-white rounded-top shadow-sm"
+    >
       <div class="d-flex justify-content-between">
         <div class="">Bus Arrival</div>
         <div class="fs-3 align-self-center" id="time">19:15</div>
@@ -11,7 +13,7 @@
 
       <div class="row bg-secondary">
         <div class="col fs-6 p-1 text-start">Next Services</div>
-        <div class="col-2 fs-6 p-1 text-start">Arrives in</div>
+        <div class="col-3 fs-6 p-1 text-start">Arrives in</div>
       </div>
       {% for bus in time_table %} {% if bus.next_services %}
       <div class="row bg-white text-dark">
@@ -25,7 +27,7 @@
         <div class="col fs-6 p-1">
           <div class="d-flex p-2 bd-highlight">{{bus.direction}}</div>
         </div>
-        <div class="col-2 fs-6 p-1 text-center align-middle">
+        <div class="col-3 fs-6 p-1 text-center align-middle">
           <div class="d-flex p-2 bd-highlight justify-content-between">
             <div class="expected" id='{{bus["next_services"][0].trip_id}}'>
               {{bus["next_services"][0].arrives_in}}
