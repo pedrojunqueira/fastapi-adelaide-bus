@@ -13,6 +13,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     image: pedrojunqueira/fastapi-bus
     env_file:
       - .env
