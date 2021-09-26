@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
 import mongoengine
+from mongoengine.queryset.visitor import Q
 from models.stop import Stop
 from models.trip import Trip
 
@@ -43,6 +44,20 @@ def get_stops():
         for s in stops
     ]
     return response
+
+def search_stops_top(search_str:str, top:int =100):
+    stops = Stop.objects(Q(name__icontains=search_str) | Q(address__icontains=search_str))
+    response = [
+        {
+            "code": s.code,
+            "name": s.name,
+            "address": s.address,
+            "lat": float(s.location["coordinates"][1]),
+            "lon": float(s.location["coordinates"][0]),
+        }
+        for s in stops
+    ]
+    return response[:top]
 
 
 def get_stop(code: str):

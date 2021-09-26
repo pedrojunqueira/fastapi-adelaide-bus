@@ -3,8 +3,11 @@ const matchList = document.getElementById("match-list");
 
 // // search bus stops
 
+// /api/search_stops_top
+// /api/get_stops
+
 const searchStops = async (searchText) => {
-  const res = await fetch("/api/get_stops");
+  const res = await fetch(`/api/search_stops_top?search=${searchText}&top=25`);
 
   const stops = await res.json();
 

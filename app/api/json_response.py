@@ -5,9 +5,14 @@ from services.real_time import Next_services
 router = fastapi.APIRouter()
 
 
-@router.get("/api/get_stops")
+@router.get("/api/get_stops", include_in_schema=False)
 def get_stops():
     return metro_service.get_stops()
+
+
+@router.get("/api/search_stops_top")
+def search_stops(search:str, top:int=100):
+    return metro_service.search_stops_top(search_str=search,top=top)
 
 
 @router.get("/api/real_time/{code}")
