@@ -35,7 +35,7 @@ cd fastapi-adelaide-bus
 
 ```bash
 touch .env
-echo MONGODB_URL=mongodb://host.docker.internal:27018/demo_bus >> .env
+echo MONGODB_URL=mongodb://db:27017/demo_bus >> .env
 ```
 
 You would need docker installed to run the app in containers
